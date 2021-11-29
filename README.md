@@ -1,5 +1,5 @@
 # NICE
-project for the Virgo DetChar Activities, here there are the setup intrustion for local installation! 
+Project for the Virgo DetChar Activities, here there are the setup instructions for local installation! 
 
 ## Installation
 
