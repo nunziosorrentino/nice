@@ -2,7 +2,7 @@
 Project for the Virgo DetChar Activities, here there are the setup instructions for local installation! 
 
 **Documentation status**
-[![Documentation Status](https://readthedocs.org/projects/nice/badge/?version=latest)](https://nice.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/nice-doc/badge/?version=latest)](https://nice-doc.readthedocs.io/en/latest/?badge=latest)
 
 ## Installation
 
