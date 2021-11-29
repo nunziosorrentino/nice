@@ -5,7 +5,7 @@ Project for the Virgo DetChar Activities, here there are the setup instructions 
 
 NICE provides an user-friendly configuration of the environment needed for its usage. You should be able to execute what follows:
 
-1. Clone repository from its GitLab repository;
+1. Clone repository from this GitHub repository;
 
 2. Go to the parent directory of the project:
 ```bash
