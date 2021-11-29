@@ -1,6 +1,9 @@
 # NICE
 Project for the Virgo DetChar Activities, here there are the setup instructions for local installation! 
 
+**Documentation status**
+[![Documentation Status](https://readthedocs.org/projects/nice/badge/?version=latest)](https://nice.readthedocs.io/en/latest/?badge=latest)
+
 ## Installation
 
 NICE provides an user-friendly configuration of the environment needed for its usage. You should be able to execute what follows:
