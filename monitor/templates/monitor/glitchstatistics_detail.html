@@ -1,0 +1,11 @@
+{% extends "base_generic_igm.html" %}
+
+{% block content %}
+    <h1>{{ run_k }} Statistics</h1>
+            <ul>
+                <li><h2>Total Glitches: </h2> <a>{{total_glitches}}</a></li>
+                <li><h2>With SNR>20: </h2> <a>{{total_glitches20}}</a></li>
+                <li><h2>Detector Channels: </h2> <a>{{detector_channels}}</a></li>
+                <li><h2>Detector Pipelines: </h2> <a>{{detector_pipelines}}</a></li>             
+            </ul>
+{% endblock %}

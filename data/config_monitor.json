@@ -1,0 +1,22 @@
+{
+  "PROJECT_NAME":"virgo_glitches",
+  "SEARCH_PARAMETERS_DEFAULT": {
+    "T_GPS": {
+      "MIN": 1185580818
+    },
+    "FREQUENCY": {
+      "MIN": 16,
+      "MAX": 4096
+    },
+    "SNR": {
+      "MIN": 7,
+      "MAX": 100
+    }
+  },
+  "ITF_FLAGS":{
+    "V1":["ITF_SCIENCE","ITF_LOCKED"]
+  },
+  "DQSEGDBFILES":{
+    "O2":"test_flags_o2_ifo_1516554915.json"
+  }
+}

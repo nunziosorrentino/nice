@@ -1,0 +1,18 @@
+{% extends "base_generic_igm.html" %}
+
+{% block content %}
+    <h1>Channels</h1>
+    <ul>
+        {% for channel in object_list %}
+            {% if channel.name == "Hrec_hoft_16384Hz" or channel.name == "GDS-CALIB_STRAIN" %}
+                <h2> {{channel.detector.code}}:{{channel.name}}</h2>
+                <li>{{channel.description}}</li>
+            {% else %}   
+                <h2> {{channel.name}}</h2>
+                <li>{{channel.description}}</li>
+            {% endif %}             
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+

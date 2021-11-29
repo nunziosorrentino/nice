@@ -1,0 +1,21 @@
+{% extends "base_generic_igm.html" %}
+
+{% block content %}
+<!--  <h1>GPS Time: {{glitchinstance.peak_time_gps}}</h1> -->
+<!--  <h2>{{glitchinstance.notes}}</h2> --> 
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.0.2.min.js"></script> 
+<p>
+    <tr></tr>
+    <h2><center>Interactive Display</center></h2>
+    {% if the_div %}  
+     {{ the_div|safe }}
+     {{ the_script|safe }} 
+    {% else %}
+     <p><center><font +2>No data found on disk!</font></center></p>
+     <p><center>{{add_err}}</center></p> 
+    {% endif %}  
+
+</p>
+
+{% endblock %}

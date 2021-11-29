@@ -1,0 +1,26 @@
+{
+  "V1": {
+    "code":"V1",
+    "name":"Virgo",
+    "latitude": 43.6305,
+    "longitude": -10.5021,
+    "description": "The Virgo Interferometer"
+    },
+  "L1": {
+    "code":"L1",
+    "name":"LIGO Livingston",
+    "latitude": 30.56, 
+    "longitude": 90.77,
+    "description": "The LIGO Livingston Interferometer"
+    }, 
+  "H1": {
+    "code":"H1",
+    "name":"LIGO Hanford",
+    "latitude": 46.45, 
+    "longitude": 119.41,
+    "description": "The LIGO Hanford Interferometer"
+    }
+}
+
+
+

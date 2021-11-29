@@ -1,0 +1,172 @@
+{% extends "base_generic_igm.html" %}
+
+{% block content %}
+
+    <h1><center>Welcome to the Homepage!</center></h1>
+<p>
+  {% if run_k == 'O3b' %}
+   <h2><center>There are no glitches added in the last 24h</center></h2>
+   <h2><strong>Glitches available summary</strong></h2>
+<!--
+   <br></br>
+   {% for runs_, num_glitches_, num_glitches_20_, num_glitch_classes_, num_channels_, num_pipelines_ in my_lists %}
+    <table>
+        <tr>
+            <td><strong>Run:</strong></td>
+            <td>{{ runs_ }}</td>
+        </tr>
+        <tr>
+            <td><strong>Total Glitches:</strong></td>
+            <td>{{ num_glitches_ }}</td>
+        </tr>
+        <tr>
+            <td><strong>Glitches with SNR > 20:</strong></td>
+            <td>{{ num_glitches_20_ }}</td>
+        </tr>
+        
+        <tr>
+            <td><strong>Glitches classes:</strong></td>
+            <td>{{ num_glitch_classes_ }}</td>
+        </tr>       
+        <tr>
+            <td><strong>Detector Channels:</strong></td>
+            <td>{{ num_channels_ }}</td>
+        </tr>
+        <tr>
+            <td><strong>Pipelines:</strong></td>
+            <td>{{ num_pipelines_ }}</td>
+        </tr>        
+    </table>
+    <br></br>
+   {% endfor %} 
+-->  
+  {% else %} 
+   <h2><center>Glitches added in the last 24h</center></h2>
+   <h2><strong>Glitches available summary</strong></h2>
+<!-- 
+    <table>
+        <tr>
+            <td><strong>Time of last glitch:</strong></td>
+            <td>{{ gps_last_glitch }} GPS {{utc_last_glitch}}</td>
+        </tr>
+        <tr>
+            <td><strong>Glitches added in the last hour:</strong></td>
+            <td>{{ num_glitches_last_hour }}</td>
+        </tr>
+        <tr>
+            <td><strong>Glitches added in the last day:</strong></td>
+            <td>{{ num_glitches_last_day }}</td>
+        </tr>        
+        <tr>
+            <td><strong>Glitches with a class:</strong></td>
+            <td>{{ num_classified_glitches }}</td>
+        </tr>
+    </table>
+-->
+  {% endif %}  
+</p>
+    <!--<script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"
+        crossorigin="anonymous"></script>-->  
+    <!--<script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.0.2.min.js"
+        crossorigin="anonymous"></script>--> 
+    <!--<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.0.2.min.js"
+        crossorigin="anonymous"></script>--> 
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.0.2.min.js"></script> 
+
+<p>
+  {% if run_k == 'O3b' %}
+    <h2><center>Last Glitches presented in {{run_k}} (SNR>20)</center></h2>
+  {% else %}    
+    <h2><center>Glitches in the last 24 hours (SNR>20)</center></h2>
+  {% endif %} 
+
+{{ the_div|safe }} 
+{{ the_script|safe }} 
+
+</p>
+
+<p>
+  {% if run_k == 'O3b' %}
+    <h2><center>Last Glitches List (SNR>20)</center></h2>
+  {% else %}    
+    <h2><center>Last Glitches Added (SNR>20)</center></h2>
+  {% endif %}  
+</p>
+<p>
+
+    <table id="table">
+        <tr>
+            <td><strong>Peak time</strong></td>
+            <td><strong>Peak Frequency</strong></td>
+            <td><strong>Duration</strong></td>
+            <td><strong>SNR</strong></td>
+            <td><strong>Channel</strong></td>
+            <td><strong>Class</strong></td>
+        </tr>
+        <tr>
+            <td><strong>[GPS]</strong></td>
+            <td><strong>[Hz]</strong></td>
+            <td><strong>[s]</strong></td>
+            <td><strong></strong></td>
+            <td><strong></strong></td>
+            <td><strong></strong></td>
+        </tr>
+        <tr></tr>
+
+              {% for ind, glitch in glitches_to_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'glitchinstance-detail' glitch.id %}">{{glitch.peak_time_gps}}</a>
+                    </td>
+            <td>
+                {{glitch.peak_frequency}}
+            </td>
+            <td>
+                {{glitch.duration}}
+            </td>
+            <td>
+                {{glitch.snr}}
+            </td>
+            <td>
+                {{glitch.channel__detector__code}}:{{glitch.channel__name}}
+            </td>
+            <td>
+                   {% if glitch.glitch_class__name == Null %}
+                    None
+                   {% else %}
+                    {{glitch.glitch_class__name}}
+                   {% endif %}
+            </td>
+        </tr>
+
+              {% endfor %}
+    </table>
+    </p>
+    <!-- paginator here
+    <p>
+    <center>
+    <div class="pagination">
+        {% if glitches_to_list.has_previous %}
+          <a href="?page={{ glitches_to_list.previous_page_number }}">&laquo;</a>
+        {% else %}
+          <span>&laquo;</span>
+        {% endif %}
+        {% for i in glitches_to_list.paginator.page_range %}
+          {% if glitches_to_list.number == i %}
+        <span><strong>{{ i }}</strong><span class="sr-only"></span></span>
+          {% else %}
+            <a href="?page={{ i }}">{{ i }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if glitches_to_list.has_next %}
+          <a href="?page={{ glitches_to_list.next_page_number }}">&raquo;</a>
+        {% else %}
+          <span>&raquo;</span>
+        {% endif %}
+      </div>
+</center>
+     </p>
+-->
+
+{% endblock %}

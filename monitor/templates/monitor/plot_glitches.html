@@ -1,0 +1,39 @@
+{% extends "base_generic_igm.html" %}
+
+{% block content %}
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.0.2.min.js"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.0.2.min.js"></script> 
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.0.2.min.js"></script>  
+
+    <h2>Glitch Search Results</h2>
+    <h4>Search Parameters</h4>
+    <p>
+    <table id="table">
+        <tr>
+            <td>GPS Time:</td>
+            <td>{{m_tmin_gps}} - {{m_tmax_gps}}</td>
+        </tr>
+        <tr>
+            <td>Frequency [Hz]:&nbsp&nbsp&nbsp&nbsp</td>
+            <td>{{m_fmin}} - {{m_fmax}}</td>
+        </tr>
+        <tr>
+            <td>SNR:&nbsp&nbsp&nbsp&nbsp</td>
+            <td>{{m_snrmin}} - {{m_snrmax}}</td>
+        </tr>
+    </table>
+    </p>
+{% if the_div %}    
+ <p>
+     <h2><center>Interactive Plotting</center></h2>
+ 
+     {{ the_div|safe }}
+     {{ the_script|safe }}
+
+ </p>
+{% else %}
+ <p>There are no glitches in the database.</p>
+{% endif %}
+
+{% endblock %}

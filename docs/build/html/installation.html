@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Installation &#8212; nice 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="NICE documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Once cloned NICE repository on your local host, just follows these steps in
+order to properly use the interface tools.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>NICE application is based on the <a class="reference external" href="https://www.python.org">Python3</a> scripting language and <a class="reference external" href="https://djangoproject.com">Django3.0.5</a>
+web framework. In order to correcly use its capabilities, make
+sure your Python version has been properly installed. Anyway you can find
+your prefered installation mode (e.g., the Python installation provided by
+your GNU/Linux distribution) and then check out your Python version through:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python3 --version
+</pre></div>
+</div>
+<p>Then verifies that it is major than Python 3.7!</p>
+</section>
+<section id="create-and-set-the-environment">
+<h2>Create and Set the Environment<a class="headerlink" href="#create-and-set-the-environment" title="Permalink to this headline">¶</a></h2>
+<p>Once gone on the path of your cloned NICE, let’s move to the parent
+directory of the project. Now create the proper Python environment for the
+correct usage of the interface:</p>
+<ol class="arabic simple">
+<li><p>Create a Python3 environment called <em>venv-django-py3</em>, or whatever.
+This should create a Python3 virtual environment with Pip installation functionalities:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python3 -m venv venv-django-py3
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Activate the environment:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">source</span> venv-django-py3/bin/activate
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Check check that <em>python</em> command returns the right version and that <em>pip</em> shows correctly the packages installed:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python --version
+$ pip list
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Install the requirements package from the <em>requirements.txt</em>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install -r &lt;path-to-the-nice-package&gt;/requirements.txt
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Check that the previous steps have been completed succesfully. Entering the following command shouldn’t return any error, warning etc:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -c <span class="s2">&quot;import numpy, django, pymysql, pandas, bokeh, gwdama&quot;</span>
+</pre></div>
+</div>
+<p>If an encouraging message of success comes up, you can go the the next
+step.</p>
+<p>Now you can setup the environment variables:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">source</span> &lt;path-to-the-nice-package&gt;/setup_vmutils.sh
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>This step must be done every time you refresh your terminal.</strong></p>
+<p>Activate the environment:</p>
+<blockquote>
+<div><p>$ source &lt;path-to-the-nice-parent-directory&gt;/venv-django-py3/bin/activate</p>
+</div></blockquote>
+<p>Setup the environment variables:</p>
+<blockquote>
+<div><p>$ source  &lt;path-to-the-nice-package&gt;/setup_vmutils.sh</p>
+</div></blockquote>
+</div>
+<p>If everything has gone well, you should see something like this in your
+command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>venv-django-py3<span class="o">)</span> &lt;user&gt;@&lt;host&gt;:
+</pre></div>
+</div>
+<p>The next step to do, in order to enjoy your glitch exploration, is the
+<a class="reference internal" href="configuration.html"><span class="doc">glitch database configuration</span></a>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/ligovirgo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nice</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-and-set-the-environment">Create and Set the Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="investigationflow.html">Investigation Flow</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">NICE documentation</a></li>
+      <li>Next: <a href="configuration.html" title="next chapter">Configuration</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Nunziato Sorrentino.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/installation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

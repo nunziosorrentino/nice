@@ -1,0 +1,21 @@
+detector_id,name,description
+V1,Hrec_hoft_16384Hz, h(t) strain
+V1,LSC_B1p_DC,Measures power at the dark port
+V1,LSC_B2_DC,Measures power at the reflected port
+V1,LSC_B4_DC,Measures circulating power in the central interferometer
+V1,LSC_B7_DC,Measures circulating power in the North Arm
+V1,LSC_B8_DC,Measures circulating power in the West Arm
+V1,LSC_B4_12MHz_MAG,Measures 6MHz sideband power in the central interferometer
+V1,LSC_DARM_ERR,Error signal for DARM
+V1,LSC_DARM,LSC DARM
+V1,LSC_PRCL_ERR,Error signal for PRCL
+V1,LSC_MICH_ERR,Error signal for MICH
+V1,LSC_BS_CORR,Longitudinal correction signal for the BS (should be like MICH correction signal)
+V1,LSC_PR_CORR,Longitudinal correction signal for the PR (should be like PRCL correction signal)
+V1,LSC_NE_CORR,Longitudinal correction signal for the NE
+V1,LSC_WE_CORR,Longitudinal correction signal for the WE
+V1,LSC_WI_CORR,Longitudinal correction signal for the WI
+V1,LSC_NI_CORR,Longitudinal correction signal for the NI
+V1,Sc_MC_MIR_Z_CORR,Input mode cleaner longitudinal correction signal
+V1,SSFS_B4_Corr_RTPC_10kHz,Correction signal to the laser frequency from the SSFS
+V1,INJ_IMC_TRA_DC,Measures circulating power in the Input Mode Cleaner

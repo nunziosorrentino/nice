@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>NICE in Virgo &#8212; nice 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Investigation Flow" href="investigationflow.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="nice-in-virgo">
+<h1>NICE in Virgo<a class="headerlink" href="#nice-in-virgo" title="Permalink to this headline">¶</a></h1>
+<p>The NICE interface is installed on a virtual machine located in the Virgo
+farm at Cascina. The database is configured as multiple datasases system.
+The first 3 database are used as archive of the Omicron triggers (link)
+present in O2, O3a and O3b runs. The last one is created for the online
+analysis of the O4 data, with the purpose of updating the it
+periodically with low latency.</p>
+<p>The databases are located in <em>cmplwebtest</em> machine. The will we
+transfered in a definitive location for the project final release.</p>
+<p>Virgo useres can use NICE behind firewall VPN client and it is provided
+through Apache HTTP Server.</p>
+<p>The instructions for a prodictive glitch investigation are explained in the
+<a class="reference internal" href="investigationflow.html"><span class="doc">investigation flow</span></a> page. Additional tools are
+available in the SGAW and are shown below.</p>
+<div class="section" id="can-i-download-strain-timeseries-around-a-glitch">
+<h2>Can I download strain timeseries around a glitch?<a class="headerlink" href="#can-i-download-strain-timeseries-around-a-glitch" title="Permalink to this headline">¶</a></h2>
+<p>Yes, there is a dedicated tool in SGAW page with which you can download 2
+seconds of h(t) data around the selected glitch (click <em>Download Time Series</em>).
+It returns a hdf file, which you can save locally and make your own
+indipendent analysis.</p>
+</div>
+<div class="section" id="how-many-auxiliary-channels-are-available">
+<h2>How many auxiliary channels are available?<a class="headerlink" href="#how-many-auxiliary-channels-are-available" title="Permalink to this headline">¶</a></h2>
+<p>The auxiliary channels available in NICE database are the DetChar Standard
+Channels (link). In <strong>SGAW</strong> page there is a link to the list of channels
+coincident triggers at the glitch peak time. Here a <em>Show Glitches</em> tool
+is provided, which plot as Q-scan plot as the channels with the glitch.
+Below there is an example of an Omicron glitch present in O3b run, with a
+coincidence in the power recycling cavity channel:</p>
+<img alt="_images/bokeh_plot_ht.png" src="_images/bokeh_plot_ht.png" />
+<img alt="_images/bokeh_plot_darm.png" src="_images/bokeh_plot_darm.png" />
+<img alt="_images/bokeh_plot_prcl.png" src="_images/bokeh_plot_prcl.png" />
+<p>Different kinds of coincident channels could suggest the origin of such
+a noise. You can download the data around the peak time, as explained above,
+and assess that with a deeper analysis.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The auxiliary channels data are available as long as they remain on
+the farm machines. This means that old runs, like O2 and O3a, contain
+only the h(t) time-series.</p>
+</div>
+</div>
+<div class="section" id="are-there-classified-glitches">
+<h2>Are there classified glitches?<a class="headerlink" href="#are-there-classified-glitches" title="Permalink to this headline">¶</a></h2>
+<p>To date, in Virgo NICE databases there are no classified glitches. Since
+it contains glitches from O2 run, it will be filled with the classification results of
+<a class="reference external" href="https://reinforceeu.eu/demonstrators/gravitational-wave-noise-hunting">REINFORCE</a> citizen science activities. This is a project that aims to
+classify glitches from Virgo past runs, in order to get the training dataset
+used in deep learning automatic classification pipelines. These results
+are compatible with NICE application, which will provide that in
+its glitches lists, <strong>IPW</strong> and <strong>SGAW</strong> pages.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/ligovirgo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nice</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="investigationflow.html">Investigation Flow</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NICE in Virgo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#can-i-download-strain-timeseries-around-a-glitch">Can I download strain timeseries around a glitch?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-many-auxiliary-channels-are-available">How many auxiliary channels are available?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#are-there-classified-glitches">Are there classified glitches?</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="investigationflow.html" title="previous chapter">Investigation Flow</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Nunziato Sorrentino.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/niceinvirgo.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,215 @@
+{% extends "base_generic_igm.html" %}
+
+{% block content %}
+    <h2>Glitch Search Results</h2>
+    <h4>Search Parameters</h4>
+    <p>
+    <table id="table">
+        <tr>
+            <td>GPS Time:</td>
+            <td>{{m_tmin_gps}} - {{m_tmax_gps}}</td>
+        </tr>
+        <tr>
+            <td>Frequency [Hz]:&nbsp&nbsp&nbsp&nbsp</td>
+            <td>{{m_fmin}} - {{m_fmax}}</td>
+        </tr>
+        <tr>
+            <td>SNR:&nbsp&nbsp&nbsp&nbsp</td>
+            <td>{{m_snrmin}} - {{m_snrmax}}</td>
+        </tr>
+    </table>
+    </p>
+    {% if glitches_list %}
+    <br>
+    <p>
+    <table id="table">
+        <tr>
+            <td><strong>Peak time</strong></td>
+            <td><strong>Peak Frequency</strong></td>
+            <td><strong>Duration</strong></td>
+            <td><strong>Frequency bandwidth</strong></td>
+            <td><strong>SNR</strong></td>
+            <td><strong>Channel</strong></td>
+            <td><strong>Class</strong></td>
+            <td><strong>Pipeline</strong></td>
+            {% if m_duration == "2.0" %}
+             <td><strong>Plot Time Reference</strong></td>
+            {% endif %} 
+        </tr>
+        <tr>
+            <td><strong>[GPS]</strong></td>
+            <td><strong>[Hz]</strong></td>
+            <td><strong>[s]</strong></td>
+            <td><strong>[Hz]</strong></td>
+            <td><strong></strong></td>
+            <td><strong></strong></td>
+            <td><strong></strong></td>
+            <td><strong></strong></td>
+            {% if m_duration == "2.0" %}
+             <td><strong>[GPS]</strong></td>
+            {% endif %} 
+        </tr>
+        <tr></tr>
+      {% for ind, glitch in glitches_list %}
+        <tr>
+            <td>
+                <a href="{% url 'glitchinstance-detail' glitch.id %}">{{glitch.peak_time_gps}}</a>
+
+            </td>
+            <td>
+                {{glitch.peak_frequency}}
+            </td>
+            <td>
+                {{glitch.duration}}
+            </td>
+            <td>
+                {{glitch.bandwidth}}
+            </td>
+            <td>
+                {{glitch.snr}}
+            </td>
+            <td>
+                {{glitch.channel__detector__code}}:{{glitch.channel__name}}
+            </td>
+            <td>
+                {% if glitch.glitch_class__name == Null %}
+                  None
+<!--                  
+                  <a href="{% url 'label-glitch' glitch.id %}?tmin_gps={{m_tmin_gps}}&tmax_gps={{m_tmax_gps}}&fmin={{m_fmin}}&fmax={{m_fmax}}&snrmin={{m_snrmin}}&snrmax={{m_snrmax}}" method='POST'> Label it </a>
+-->
+                {% else %}
+                  {{glitch.glitch_class__name}}                 
+                {% endif %} 
+            </td>
+            <td>
+                {{glitch.glitch_pipeline__name}}
+            </td> 
+            {% if m_duration == "2.0" %}
+             {% if ind == 0 %}
+              <td>
+                <input type="text" name="t_ref" list="gpstimes" value='{{glitch.peak_time_gps}}' size="15" maxlength="15" readonly/>
+              </td>            
+             {% else %}
+              <td></td>   
+             {% endif %} 
+            {% endif %}             
+        </tr>
+
+      {% endfor %}
+      
+      {% if m_duration == "2.0" %}
+       <datalist id="gpstimes"/>
+       {% for ind, glitch in glitches_list %}
+        {% if ind == 0 %}
+         <option>{{glitch.peak_time_gps}}</option>
+        {% else %} 
+         {% if glitch.channel__name == "Hrec_hoft_16384Hz" %}
+          <option>{{glitch.peak_time_gps}}</option>
+         {% endif %}
+        {% endif %} 
+       {% endfor %}
+       </datalist>
+      {% endif %} 
+
+      <form action="../export/glitch" method='GET'>
+       <tr>
+           <td>
+               <input type='checkbox' name='download_column[]' value='peak_time_gps' checked />
+           </td>
+           <td>
+               <input type='checkbox' name='download_column[]' value='peak_frequency' checked />
+           </td>
+           <td>
+               <input type='checkbox' name='download_column[]' value='duration' checked />
+           </td>
+           <td>
+               <input type='checkbox' name='download_column[]' value='bandwidth' checked />
+           </td>
+           <td>
+               <input type='checkbox' name='download_column[]' value='snr' checked />
+           </td>
+           <td>
+               <center><input type='checkbox' name='download_column[]' value='channel' checked /></center>
+           </td>
+           <td>
+               <input type='checkbox' name='download_column[]' value='glitch_class' checked />
+           </td>
+           <td>
+               <input type='checkbox' name='download_column[]' value='glitch_pipeline' checked />
+           </td>
+       </tr>
+       <tr>
+           <td><br></td>
+       </tr>
+
+        <input type='hidden' name='format' value='csv'>
+        <input type='hidden' name='tmin_gps' value={{m_tmin_gps}}>
+        <input type='hidden' name='tmax_gps' value={{m_tmax_gps}}>
+        <input type='hidden' name='fmin' value={{m_fmin}}>
+        <input type='hidden' name='fmax' value={{m_fmax}}>
+        <input type='hidden' name='snrmin' value={{m_snrmin}}>
+        <input type='hidden' name='snrmax' value={{m_snrmax}}>
+        {% for ch in m_search_channel %}
+        <input type='hidden' name='search_channel[]' value={{ch}}>
+        {% endfor %}
+        {% for cl in m_search_class %}
+        <input type='hidden' name='search_class[]' value={{cl}}>
+        {% endfor %}
+        {% for pi in m_search_pipeline %}
+        <input type='hidden' name='search_pipeline[]' value={{pi}}>
+        {% endfor %}
+    </table>
+   </p>
+    <input type='submit' value='Download CSV'>
+
+      </form>
+      {% if m_duration == "2.0" %}
+       <form action="../plot/glitch" method='GET'>
+          <input type="hidden" name="q-min" value="8" size="7" maxlength="15" />
+          <input type="hidden" name="q-max" value="32" size="7" maxlength="15" />
+          <input type="hidden" name="f-min" value="10" size="7" maxlength="15" />
+          <input type="hidden" name="f-max" value="500" size="7" maxlength="15" />
+          <input type="hidden" name="t-window" value="2" size="7" maxlength="15" />                        
+          <input type='hidden' name='tmin_gps' value={{m_tmin_gps}}>
+          <input type='hidden' name='tmax_gps' value={{m_tmax_gps}}>
+          <input type='hidden' name='fmin' value={{m_fmin}}>
+          <input type='hidden' name='fmax' value={{m_fmax}}>
+          <input type='hidden' name='snrmin' value={{m_snrmin}}>
+          <input type='hidden' name='snrmax' value={{m_snrmax}}>
+<!--        
+          <input type='hidden' name='tgps_glitch' value={{glitchinstance.peak_time_gps}}>
+          <input type='hidden' name='ifo' value={{glitchinstance.channel.detector.code}}>
+          <input type='hidden' name='channel' value={{glitchinstance.channel.name}}>
+-->
+          <p align="left">
+            <input type='submit' value="Show glitches">
+          </p>  
+       </form>
+      {% endif %} 
+
+
+     {% else %}
+      <p>There are no glitches in the database.</p>
+    {% endif %}
+{% endblock %}
+
+{% block pagination %}
+  {% if is_paginated %}
+      <div class="pagination">
+          <span class="page-links">
+              {% if page_obj.has_previous %}
+                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+              {% endif %}
+              <span class="page-current">
+                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+              </span>
+              {% if page_obj.has_next %}
+                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+              {% endif %}
+          </span>
+      </div>
+  {% endif %}
+
+
+{% endblock %}
+

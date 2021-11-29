@@ -1,0 +1,12 @@
+{
+ "GWScattLight": {
+    "code":"GWScattL",
+    "name":"GWScattLight",
+    "description":"Glitch arch due to laser scattered light in the interferometer"
+    }, 
+ "GWSinGauss": {
+    "code":"GWSinGau",
+    "name":"GWSinGauss",
+    "description":"Glitch modelled with a time sin-gaussian function"
+    }
+}    

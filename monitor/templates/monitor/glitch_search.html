@@ -1,0 +1,198 @@
+{% extends "base_generic_igm.html" %}
+
+{% block content %}
+
+<h2>{{search_mode}} glitches - Search form</h2>
+
+{% if search_mode == "List" %}
+    <form action="/monitor/glitches/" method="get" >
+{% else %}
+    <form action="/monitor/plot/" method="post" >
+{% endif %}
+
+    <table id="table" style="width: 500px";>
+        <tr>
+            <td colspan="6" align="center"><strong><h4>General parameters</h4></strong></td>
+        </tr>
+        <tr>
+            <td>
+                GPS time:&nbsp&nbsp&nbsp
+            </td>
+            <td>
+                Min
+            </td>
+            <td>
+                <input type="text" name="tmin_gps" value="{{tmin_gps_default}}" size="15" maxlength="15" />
+            </td>
+            <td></td>
+            <td>
+                Max
+            </td>
+            <td>
+                <input type="text" name="tmax_gps" value="{{t_now_gps}}" size="15" maxlength="15" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Frequency (Hz)&nbsp&nbsp&nbsp
+            </td>
+            <td>
+                Min
+            </td>
+            <td>
+                <input type="text" name="fmin" value="{{fmin_default}}" size="5" maxlength="5" />
+            </td>
+            <td></td>
+            <td>
+                Max
+            </td>
+            <td>
+                <input type="text" name="fmax" value="{{fmax_default}}" size="5" maxlength="5" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                SNR:&nbsp&nbsp&nbsp
+            </td>
+            <td>
+                Min
+            </td>
+            <td>
+                <input type="text" name="snrmin" value="{{snrmin_default}}" size="4" maxlength="4" />
+            </td>
+            <td></td>
+            <td>
+                Max
+            </td>
+            <td>
+                <input type="text" name="snrmax" value="{{snrmax_default}}" size="4" maxlength="4" />
+            </td>
+        </tr>
+    </table>
+    <table id="table" style="width: 600px";>
+        <tr>
+            <td align="center" colspan="5"><strong><h4>Classes</h4></strong></td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td>
+        </tr>
+        <tr>
+        {% for class in list_available_glitch_classes %}
+            <td><input type='checkbox' name='search_class[]' id='{{class.name}}' value='{{class.name}}' checked />&nbsp{{class.name}}</td>
+            {% if forloop.counter|divisibleby:"5" %}
+            </tr>
+                {% if not forloop.last %}
+                <tr>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+            <td><input type='checkbox' name='search_class[]' id='NONE' value='NONE' checked />&nbspNONE<br></td>
+
+        <tr>
+            <!--<td><input type='checkbox' name='search_class[]' value='NONE' checked />&nbspNONE<br></td>-->
+            <td><br></td>
+        </tr>
+        <tr>
+            <td>&nbsp</td>
+            <td>&nbsp</td>
+            <td>
+               {% if search_mode == "List" %}
+                   <input type="submit" name="searchbutton" value="search" />
+               {% else %}
+                   <input type="submit" name="searchbutton" value="plot" />
+               {%endif %}
+            </td>
+            <td>
+                <input type="reset" name="searchbutton" value="cancel" />
+            </td>
+            <td>
+             <p>
+              <button type='button' onclick='{{classes_check_command}}'>Select All</button>
+             </p>
+             <p>  
+              <button type='button' onclick='{{classes_uncheck_command}}'>Deselect All</button>
+             </p> 
+            </td>             
+        </tr>
+       </table>
+    <table id="table" style="width: 800px";>
+        <tr>
+            <td align="center" colspan="4">
+                <strong><h4>Pipelines</h4></strong>
+            </td>
+        </tr>
+        <tr> 
+            {% for pipeline in list_available_pipelines %}
+            <td>
+                <input type='checkbox' name='search_pipeline[]' id='{{pipeline.name}}' value='{{pipeline.name}}' checked/>&nbsp'{{pipeline.name}}'
+                {% if forloop.counter|divisibleby:"4" %}
+                    </tr>
+                    {% if not forloop.last %}
+                        <tr>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}  
+        <tr>
+            <td><br></td>
+       </tr>
+       <tr>
+            <td>&nbsp</td>
+            <td>
+               {% if search_mode == "List" %}
+                   <input type="submit" name="searchbutton" value="search" />
+               {% else %}
+                   <input type="submit" name="searchbutton" value="plot" />
+               {%endif %}
+            </td>
+            <td>
+                    <input type="reset" name="searchbutton" value="cancel" />
+            </td>
+            <td>
+             <button type='button' onclick='{{pipelines_check_command}}'>Select All</button>
+             <button type='button' onclick='{{pipelines_uncheck_command}}'>Deselect All</button>
+            </td> 
+        </tr>
+    </table>
+       <table id="table" style="width: 800px";>
+        <tr>
+            <td align="center" colspan="4">
+                <strong><h4>Channels</h4></strong>
+            </td>
+        </tr>
+        <tr> 
+            {% for channel in channel_list %}
+            <td>
+               {% if channel.name == "Hrec_hoft_16384Hz" or channel.name == "GDS-CALIB_STRAIN" %}
+                  <input type='checkbox' name='search_channel[]' id='{{channel.detector.code}}:{{channel.name}}' value='{{channel.detector.code}}:{{channel.name}}' checked />&nbsp{{channel.detector.code}}:{{channel.name}}
+               {% else %}
+                  <input type='checkbox' name='search_channel[]' id='{{channel.detector.code}}:{{channel.name}}' value='{{channel.name}}' />&nbsp{{channel.name}}
+                {% endif %}
+
+                {% if forloop.counter|divisibleby:"4" %}
+                    </tr>
+                    {% if not forloop.last %}
+                        <tr>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}  
+        <tr>
+            <td><br></td>
+       </tr>
+       <tr>
+            <td>&nbsp</td>
+            <td>
+               {% if search_mode == "List" %}
+                   <input type="submit" name="searchbutton" value="search" />
+               {% else %}
+                   <input type="submit" name="searchbutton" value="plot" />
+               {%endif %}
+            </td>
+            <td>
+                    <input type="reset" name="searchbutton" value="cancel" />
+            </td>
+            <td>
+             <button type='button' onclick='{{channels_check_command}}'>Select All</button>
+             <button type='button' onclick='{{channels_uncheck_command}}'>Deselect All</button>
+            </td> 
+        </tr>
+    </table>    
+</form>
+
+{% endblock %}

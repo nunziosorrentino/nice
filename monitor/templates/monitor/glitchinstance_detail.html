@@ -1,0 +1,113 @@
+{% extends "base_generic_igm.html" %}
+
+{% block content %}
+  <h1 class="page-header">Glitch at UTC Time: {{glitch_time_date}}</h2>
+  <h2>GPS Time: {{glitchinstance.peak_time_gps}}</h1>
+  <h2>Frequency: {{glitchinstance.peak_frequency}} Hz</h2>
+  <h2>Duration: {{glitchinstance.duration}} s</h2>
+  <h2>Bandwidth: {{glitchinstance.bandwidth}} Hz</h2>
+  <h2>SNR: {{glitchinstance.snr}}</h2>
+  <h3>{{glitchinstance.notes}}</h3>  
+  <hr>      
+      <td><strong>Class: {{glitchinstance.glitch_class.name}}</strong></td>
+      {% if glitchinstance.glitch_class_id == Null %}
+       <td>This glitch doesn't belong to any class!</td> 
+      {% else %}
+       <td><li>{{glitchinstance.glitch_class.description}}</li></td>        
+      {% endif %}
+  </hr>
+  <hr>
+    <td><strong>Click and view time coinciding glitches</strong></td>
+    <br>
+      <td>
+            <a href="{% url 'glitches' %}?tmin_gps={{glitch_time_min}}&tmax_gps={{glitch_time_max}}&fmin=5&fmax=10000&snrmin=3&snrmax=10000000">{{glitchinstance.channel.detector.code}}:{{glitchinstance.channel.name}}</a>
+      </td>
+    </br>   
+  </hr>  
+  <hr>
+    <p>
+     <table> 
+      <td><strong>Save and return the GW time series:</strong></td>
+       <form action="../loaddama/glitch" method='GET'>
+         <input type='hidden' name='tmin_gps' value={{glitch_time_min}}>
+         <input type='hidden' name='tmax_gps' value={{glitch_time_max}}>
+         <input type='hidden' name='tgps_glitch' value={{glitchinstance.peak_time_gps}}>         
+         <input type='hidden' name='ifo' value={{glitchinstance.channel.detector.code}}>
+         <input type='hidden' name='channel' value={{glitchinstance.channel.name}}>
+     </table>
+    </p>
+   <input type='submit' value="Download Time Series">
+       </form>
+  </hr> 
+  <hr>
+    <p>
+     <table> 
+      <td><strong>Show the q-scan of the glitch:</strong></td>
+       <form action="../plot/glitch" method='GET'>
+         <tr>
+             <td>
+                 Q-range
+             </td>
+             <td>
+                 Min
+             </td>
+             <td>
+                 <input type="text" name="q-min" value="8" size="7" maxlength="15" />
+             </td>
+             <td></td>
+             <td>
+                 Max
+             </td>
+             <td>
+                 <input type="text" name="q-max" value="32" size="7" maxlength="15" />
+             </td>
+         </tr>  
+         <tr>
+             <td>
+                 Frequency-range [Hz]
+             </td>
+             <td>
+                 Min
+             </td>
+             <td>
+                 <input type="text" name="f-min" value="10" size="7" maxlength="15" />
+             </td>
+             <td></td>
+             <td>
+                 Max
+             </td>
+             <td>
+                 <input type="text" name="f-max" value="500" size="7" maxlength="15" />
+             </td>
+         </tr> 
+         <tr>
+             <td>
+                 Time Window [s]
+             </td> 
+             <td></td>        
+             <td>
+                 <input type="text" name="t-window" value="2" size="7" maxlength="15" />
+             </td>
+         </tr>                        
+         <input type='hidden' name='tmin_gps' value={{glitch_time_min}}>
+         <input type='hidden' name='tmax_gps' value={{glitch_time_max}}>
+         <input type='hidden' name='tgps_glitch' value={{glitchinstance.peak_time_gps}}>
+         <input type='hidden' name='ifo' value={{glitchinstance.channel.detector.code}}>
+         <input type='hidden' name='channel' value={{glitchinstance.channel.name}}>
+     </table>
+    </p>
+   <input type='submit' value="Show glitch">
+       </form>
+  </hr>
+<!--
+  <hr>
+     {% if glitchinstance.glitch_class_id == Null %}
+        This glitch hasn't already been labeled.
+        <br></br>
+        <a href="{% url 'label-glitch' glitchinstance.id %}?tmin_gps={{glitch_time_min}}&tmax_gps={{glitch_time_max}}" method='POST'> Label it</a>
+     {% else %}
+        <a href="{% url 'label-glitch' glitchinstance.id %}?tmin_gps={{glitch_time_min}}&tmax_gps={{glitch_time_max}}" method='POST'> Label Glitch Page</a>                 
+     {% endif%}
+  </hr>  
+-->         
+{% endblock %}

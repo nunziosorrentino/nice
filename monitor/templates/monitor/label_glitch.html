@@ -1,0 +1,39 @@
+{% extends "base_generic_igm.html" %}
+
+{% block content %}
+  <h1>GPS Time: {{glitch_inst.peak_time_gps}}</h1>
+  <h2>{{glitch_inst.notes}}</h2> 
+  <center><h2>Label glitch page</h2></center>
+   {% if glitch_inst.glitch_class_id == Null %} 
+    <p style="color:red"> Not Labeled </p> 
+   {% else %}
+    <p style="color:green"> Labeled </p> 
+   {% endif %} 
+  </strong>
+  <form action="/monitor/label/{{glitch_inst.pk}}?tmin_gps={{tmin_gps}}&tmax_gps={{tmax_gps}}" method="post">
+   <input type='hidden' name='tmin_gps' value={{tmin_gps}}>
+   <input type='hidden' name='tmax_gps' value={{tmax_gps}}>  
+   <hr> 
+    <strong>Label name:</strong>
+    <br>
+     {% if glitch_inst.glitch_class_id == Null %}
+      <input type="text" name="class" value="" size="20" maxlength="50"/>
+     {% else %}
+      <input type="text" name="class" value={{glitch_inst.glitch_class.name}} size="20" maxlength="50" readonly/>
+     {% endif %}      
+    </br> 
+   </hr>
+   <hr> 
+    <strong>Add a note:</strong>
+    <br>
+     <input type="text" name="comments" value="" size="90" maxlength="500" />
+    </br> 
+   </hr> 
+   <hr>   
+    <input type="submit" value="Submit">
+   </hr>
+  </form>  
+  <hr>
+   <a href="{% url 'glitchinstance-detail' glitch_inst.pk %}">← back to the glitch details</a>
+  </hr>   
+{% endblock %}

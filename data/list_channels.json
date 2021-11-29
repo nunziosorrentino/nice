@@ -1,0 +1,86 @@
+{
+ "Hrec_hoft_16384Hz": {
+    "name":"Hrec_hoft_16384Hz",
+    "description":"Virgo reconstructed gravitational strain signal"
+    }, 
+ "GDS-CALIB_STRAIN": {
+    "name":"GDS-CALIB_STRAIN",
+    "description":"LIGO reconstructed gravitational strain signal"
+    },
+ "LSC_B1p_DC": {
+    "name":"LSC_B1p_DC",
+    "description":"Measures power at the dark port" 
+    },
+ "LSC_B2_DC": {
+    "name":"LSC_B2_DC",
+    "description":"Measures power at the reflected port" 
+    },
+ "LSC_B4_DC": {
+    "name":"LSC_B4_DC",
+    "description":"Measures circulating power in the central interferometer" 
+    },
+ "LSC_B7_DC": {
+    "name":"LSC_B7_DC",
+    "description":"Measures circulating power in the North Arm" 
+    },
+ "LSC_B8_DC": {
+    "name":"LSC_B8_DC",
+    "description":"Measures circulating power in the West Arm" 
+    }, 
+ "LSC_B4_12MHz_MAG": {
+    "name":"LSC_B4_12MHz_MAG",
+    "description":"Measures 6MHz sideband power in the central interferometer" 
+    }, 
+ "LSC_DARM_ERR": {
+    "name":"LSC_DARM_ERR",
+    "description":"Error signal for DARM" 
+    }, 
+ "LSC_DARM": {
+    "name":"LSC_DARM",
+    "description":"Longitudinal stability control of the differential arm length" 
+    },
+ "LSC_PRCL_ERR": {
+    "name":"LSC_PRCL_ERR",
+    "description":"Error signal for PRCL" 
+    },
+ "LSC_MICH_ERR": {
+    "name":"LSC_MICH_ERR",
+    "description":"Error signal for MICH" 
+    },
+ "LSC_BS_CORR": {
+    "name":"LSC_BS_CORR",
+    "description":"Longitudinal correction signal for the BS (should be like MICH correction signal)" 
+    },
+ "LSC_PR_CORR": {
+    "name":"LSC_PR_CORR",
+    "description":"Longitudinal correction signal for the PR (should be like PRCL correction signal)" 
+    },
+ "LSC_NE_CORR": {
+    "name":"LSC_NE_CORR",
+    "description":"Longitudinal correction signal for the NE" 
+    },
+ "LSC_WE_CORR": {
+    "name":"LSC_WE_CORR",
+    "description":"Longitudinal correction signal for the WE" 
+    },
+ "LSC_WI_CORR": {
+    "name":"LSC_WI_CORR",
+    "description":"Longitudinal correction signal for the WI" 
+    },
+ "LSC_NI_CORR": {
+    "name":"LSC_NI_CORR",
+    "description":"Longitudinal correction signal for the NI" 
+    },
+ "Sc_MC_MIR_Z_CORR": {
+    "name":"Sc_MC_MIR_Z_CORR",
+    "description":"Input Mode Cleaner longitudinal correction signal" 
+    },
+ "SSFS_B4_Corr_RTPC_10kHz": {
+    "name":"SSFS_B4_Corr_RTPC_10kHz",
+    "description":"Correction signal to the laser frequency from the SSFS" 
+    },
+ "INJ_IMC_TRA_DC": {
+    "name":"INJ_IMC_TRA_DC",
+    "description":"Measures circulating power in the Input Mode Cleaner" 
+    }
+}

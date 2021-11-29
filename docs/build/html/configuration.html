@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Configuration &#8212; nice 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Investigation Flow" href="investigationflow.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>Once installed the NICE application on your host, it is time for the local
+database. NICE provides some simulated glitches metadata, which represent
+a starting point for showing its functionalities. Let’s see how to
+fill a local database.</p>
+<section id="mysql-database-service">
+<h2>MySQL Database Service<a class="headerlink" href="#mysql-database-service" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.mysql.com/">MySQL</a> is used for the NICE Databases management and is supported by
+both <a class="reference external" href="https://www.djangoproject.com/">Django</a> and <a class="reference external" href="https://pymysql.readthedocs.io/en/latest/">Pymysql</a> libraries.</p>
+<p>Ensure you have it installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install mysql-server
+</pre></div>
+</div>
+<p>Adjust mysql security installation with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo mysql_secure_installation
+</pre></div>
+</div>
+<p>Here press <em>y</em> to the provided questions, set the password security to <em>0</em> level (if asked), and
+create your mysql <em>root</em> password.</p>
+<p><strong>Remember your mysql root password</strong>, it is fundamental for the next steps.</p>
+<p>Make sure you can access to the MySQL shell as a root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo mysql -u root -p
+</pre></div>
+</div>
+<p>Enter root password and check you are in <em>mysql&gt;</em> shell.</p>
+<p>Now let’s create the required MySQL user and associate it to
+the needed privileges. Consider <em>vm_admin</em> as user name.
+This will be used for the database connection from the <em>localhost</em>.
+Let’s call:</p>
+<p>{PASSWORD}: the password associated to the <em>vm_admin</em>;
+(<em>WARNING</em>: this is different from the root password you created before);</p>
+<p>Once you choose the user password, create an empty database named <em>glitches_db</em> as root user:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo mysql -u root -e <span class="s2">&quot;CREATE USER &#39;vm_admin&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;{PASSWORD}&#39;;&quot;</span>
+$ sudo mysql -u root -e <span class="s2">&quot;CREATE DATABASE glitches_db;&quot;</span>
+$ sudo mysql -u root -e <span class="s2">&quot;GRANT SELECT, INSERT, ALTER, CREATE, REFERENCES, INDEX, UPDATE ON glitches_db.* TO &#39;vm_admin&#39;@&#39;localhost&#39;;&quot;</span>
+</pre></div>
+</div>
+<p>Check that user has been correctly created with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo mysql -u vm_admin -p
+</pre></div>
+</div>
+<p>Enter {PASSWORD} and if you are in <em>mysql&gt;</em> shell check if <em>glitches_db</em> is accessible with:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mysql&gt; show databases<span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>This database will be filled with the simulated glitches metadata.</strong></p>
+<p>The database connection to the NICE interface is made using the Django
+framework. Go to settings directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;path-to-nice-project&gt;/virgo_glitches/settings/
+</pre></div>
+</div>
+<p>and create a <em>.env</em> file. Here set the environment variable <em>PASSWORD</em>
+equal to one you chose for the <em>vm_admin</em> user:</p>
+<p>PASSWORD={PASSWORD}</p>
+</section>
+<section id="database-creation-and-connection">
+<h2>Database Creation and Connection<a class="headerlink" href="#database-creation-and-connection" title="Permalink to this headline">¶</a></h2>
+<p>Go to the NICE project directory!</p>
+<p>The NICE database structure is set using the Django migrations
+modules. The models of such structure are located in the <em>monitor/models.py</em>
+script and can be created and migrated to <em>glitches_db</em>  with the
+following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python manage.py makemigrations monitor --settings<span class="o">=</span>virgo_glitches.settings.local
+</pre></div>
+</div>
+<p>this should create models related to glitches, classes, channels, detector
+and pipelines with which the catalogue is interfaced.</p>
+<p>Now migrate this structure to the NICE database with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python manage.py migrate --settings<span class="o">=</span>virgo_glitches.settings.local
+</pre></div>
+</div>
+<p>If no errors rise up, the structure of database is done, but it is still empty!</p>
+<p>Let’s see how too fill it with simulated glitches metadata.</p>
+</section>
+<section id="insert-glitches">
+<h2>Insert Glitches<a class="headerlink" href="#insert-glitches" title="Permalink to this headline">¶</a></h2>
+<p>There are 2000 of simulated glitches in <em>&lt;path-to-nice-project&gt;/data/ListGlitchMetadata</em>
+directory and are stored in:</p>
+<ol class="arabic simple">
+<li><p><strong>singauss.hdf5</strong>: glitches modelled with a sin-gaussian time function;</p></li>
+<li><p><strong>scattered_light.hdf5</strong>: arches glitches due to the laser scattered light in the interferometers;</p></li>
+</ol>
+<p>Use <em>load_glitches.py</em> executable in order to fill the database with the
+corresponding metadata;</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ load_glitches.py &lt;path/to/glitch/parameters/file.hdf5&gt; --gclass <span class="o">{</span>GWCLASS<span class="o">}</span> --pipeline GWSkySim
+</pre></div>
+</div>
+<p>where ‘{GWCLASS}’ is <em>GWScattLight</em> or <em>GWSinGauss</em>, depending on the <em>hdf5</em> file you are loading.
+It will create tables elements  compatible with the catalogue models provided by Django.</p>
+<p>Ensure you can connect to the database by running NICE on Django server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python manage.py runserver --settings<span class="o">=</span>virgo_glitches.settings.local
+</pre></div>
+</div>
+<p>If it returns a link to the NICE webpage at port 8000, the database is
+correctly connected to the application.</p>
+<p>Go to the link page and
+<a class="reference internal" href="investigationflow.html"><span class="doc">explore the NICE application tools</span></a> interacting with
+the glitch metadata presented in the database.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/ligovirgo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nice</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mysql-database-service">MySQL Database Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-creation-and-connection">Database Creation and Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#insert-glitches">Insert Glitches</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="investigationflow.html">Investigation Flow</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="investigationflow.html" title="next chapter">Investigation Flow</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Nunziato Sorrentino.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/configuration.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

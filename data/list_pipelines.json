@@ -1,0 +1,20 @@
+{
+  "Omicron": {
+     "name":"Omicron",
+     "pipeline_type":"Trigger Search",
+     "out_directory":"/opt/w3/DataAnalysis/GeOmiTri",
+     "description": "Pipeline generating triggers with SNR",
+     "setup_command": "",
+     "list_command":"omicron-print.exe",
+     "run_command":"omicron-print"
+    },
+  "GWSkySim": {
+     "name":"GWSkySim",
+     "pipeline_type":"Glitch simulation",
+     "out_directory":" ",
+     "description": "It is used for simulating gravitational waves signal and noise.",
+     "setup_command":" ",
+     "list_command":" ",
+     "run_command":"gwsim.py"
+    }
+}     

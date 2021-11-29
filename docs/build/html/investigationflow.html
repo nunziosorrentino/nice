@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Investigation Flow &#8212; nice 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="investigation-flow">
+<h1>Investigation Flow<a class="headerlink" href="#investigation-flow" title="Permalink to this headline">¶</a></h1>
+<p>Ones the database is correctly configured, let’s see how to use the
+interface for the various investigations you may do!</p>
+<section id="how-do-i-get-my-glitches-of-interest">
+<h2>How do I get my glitches of interest?<a class="headerlink" href="#how-do-i-get-my-glitches-of-interest" title="Permalink to this headline">¶</a></h2>
+<p>Open the NICE Homepage and click on <strong>Search</strong> window. Here it is possible to
+make requests to the database and get the desired
+information about the selected glitches:</p>
+<img alt="_images/search_page.png" src="_images/search_page.png" />
+<p>Here you can query glitches by:</p>
+<ol class="arabic simple">
+<li><p>GPS time interval;</p></li>
+<li><p>Frequency range;</p></li>
+<li><p>Minumun and Maximum Signal to Noise Ratio (SNR);</p></li>
+</ol>
+<p>You can also select the glitches families in such intervals,
+the unclassified ones (<em>NONE</em> label), the pipeline that generated them and
+the reference channel.</p>
+<p>Click on <em>search</em> button and get the list of selected glitches metadata.
+You can download such table by clicking on <em>Download CSV</em>.</p>
+</section>
+<section id="how-are-glitches-distributed-around-a-gravitational-wave-event">
+<h2>How are glitches distributed around a gravitational wave event?<a class="headerlink" href="#how-are-glitches-distributed-around-a-gravitational-wave-event" title="Permalink to this headline">¶</a></h2>
+<p>Click on <strong>Plot</strong> window in NICE Homepage. Here comes a database request page
+similar to <strong>Search</strong> page (see paragraph above). Ones made your request with the
+GPS time interval around your gravitational wave event, the <strong>IPW</strong> opens up.
+Here it is possible to interactively visualize the glitches distribution
+around the event. Here there is an example:</p>
+<img alt="_images/bokeh_plot_snr.png" src="_images/bokeh_plot_snr.png" />
+<p>The plot is interactive in the sense that it is possible to change the
+axis and points values. You can enphasize the family that glitches
+belong to by changing the color bar. Here there is an exemple with 2
+simulates glitches families:</p>
+<img alt="_images/bokeh_plot_class.png" src="_images/bokeh_plot_class.png" />
+<p>You can also change the axis values with all glitches metadata available
+in database tables, like showing the SNR distribution above peak frequency.</p>
+<img alt="_images/bokeh_plot_class-snr.png" src="_images/bokeh_plot_class-snr.png" />
+<p>You can even sub-select the dataset requested by using the relative widgets,
+like plotting the auxiliary channel glitches around the gravitational wave event.</p>
+</section>
+<section id="how-can-i-analyze-the-origin-and-the-morphology-of-a-single-glitch">
+<h2>How can I analyze the origin and the morphology of a single glitch?<a class="headerlink" href="#how-can-i-analyze-the-origin-and-the-morphology-of-a-single-glitch" title="Permalink to this headline">¶</a></h2>
+<p>You can access to the <strong>SGAW</strong> by clicking on the GPS time of search list
+or on the scatter point of the <strong>IPW</strong>. This page is dadicated to the
+rapid analysis of the single glitch, using both strain and auxiliary channels.
+Here there are 2 examples of simulated glitches, which are common in the Virgo
+strain channel. The first is an arch due to the effect of laser scattered
+light and the second one is well modelled with a sin-gaussian time function.</p>
+<img alt="_images/bokeh_plot_scattlight.png" src="_images/bokeh_plot_scattlight.png" />
+<img alt="_images/bokeh_plot_singauss.png" src="_images/bokeh_plot_singauss.png" />
+<p>The comparison of time concident glitches through the channels, which have
+the same time-frequency morphology, is a first clue for the glitch origin
+investigation. In <strong>SGAW</strong> there is the dedicated button for the comparison
+the Q-scan images coming from the auxiliary channels available in
+the database.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/ligovirgo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nice</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Investigation Flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-get-my-glitches-of-interest">How do I get my glitches of interest?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-are-glitches-distributed-around-a-gravitational-wave-event">How are glitches distributed around a gravitational wave event?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-can-i-analyze-the-origin-and-the-morphology-of-a-single-glitch">How can I analyze the origin and the morphology of a single glitch?</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="configuration.html" title="previous chapter">Configuration</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Nunziato Sorrentino.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/investigationflow.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Noise Interactive Catalogue Explorer</title>
+
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+  <!--<link rel="stylesheet" type="text/css" href="../static/css/styles.css">-->
+
+  <!-- script to display time in real time -->
+
+  <script type="text/javascript" src="{% static 'js/curtime.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/gpstimeutils.js' %}"></script>
+  <!--<script type="text/javascript" src="../static/js/gpstimeutils.js"></script>-->
+
+<script>
+function startTime() {
+  var today = new Date();
+  var month = today.getUTCMonth() + 1; //months from 1-12
+  var day = today.getUTCDate();
+  var year = today.getUTCFullYear();
+  var h = today.getUTCHours();
+  var m = today.getUTCMinutes();
+  var s = today.getUTCSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('txt').innerHTML =
+  year + '/' + month + '/' + day + '-' + h + ":" + m + ":" + s;
+  var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+</script>
+
+</head>
+
+<body onload="startTime()">
+<div width="1000px" align="center">
+<div id="container">
+
+    <!-- header -->
+    <div align="left" id="header">
+        <div id="header-left">
+            <h2>Noise Interactive Catalogue Explorer</h2>
+        </div>
+
+        <div id="links">
+            <h3>Current UTC Time:</h3>
+            <div id="txt"></div>
+        </div>
+	</div>
+
+    <!--menu-->
+	<div id="navigation">
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'search' mode='list' %}">Search</a></li>
+            <li><a href="{% url 'search' mode='plot' %}">Plot</a></li>
+        </ul>
+    </div>
+
+    <!-- right sidebar -->
+    <div id="sidebar">
+        <section>
+            {% if user.is_authenticated %}
+            <strong>&nbsp Logged in as {{ user.username }}</strong>
+            <br>&nbsp (<a href="{% url 'logout'%}?next={{request.path}}">Logout</a>)
+            <hr>
+            {% else %}
+            <hr>
+            {% endif %}
+        </section>
+        <section>
+            <p>
+            <strong>&nbsp Current Database</strong>:</p>
+              <ul>
+                <li style="list-style-type: none;">Run: {{ run_k }}</li>              
+                <li><a href="{% url 'statistics' %}">Statistics</a></li>                
+              </ul>
+        </section>
+        <hr>
+        <section>
+            <p>
+            <strong>&nbsp Channels</strong>:</p>
+              <ul>
+                <li><a href="{% url 'channels' %}">Channels</a></li>
+              </ul>
+        </section>
+        <hr>
+
+        <section>
+            <p><strong>&nbsp Glitch Summary</strong>:</p>
+            <ul>
+                <li style="list-style-type: none;"><a href="{% url 'glitches' %}?lookback=3600">Last hour</a></li>
+                <li style="list-style-type: none;"><a href="{% url 'glitches' %}?lookback=43200">Last 12 hours</a></li>
+                <li style="list-style-type: none;"><a href="{% url 'glitches' %}?lookback=86400">Last day</a></li>
+                <li style="list-style-type: none;"><a href="{% url 'glitches' %}?lookback=604800">Last Week</a></li>
+<!--                
+                <li style="list-style-type: none;"><a href="{% url 'glitches' %}?tmin_gps=1164556817&tmax_gps=1187733618&fmin=8&fmax=4096&snrmin=20&snrmax=1000&search_channel[]=Hrec_hoft_16384Hz&search_channel[]=GDS-CALIB_STRAIN">H1-L1-V1 O2</a></li>
+-->               
+            </ul>
+        </section>
+    </div>
+
+    <!-- content -->
+	<div id="content">
+        {% block content %}Content goes here{% endblock %}
+        <br>
+	</div>
+
+    <!-- footer -->
+	<div id="footer">
+        Powered by <a href="https://www.djangoproject.com/">Django,</a>    
+        Credits: EGO & The Virgo Collaboration
+        <br><a href="mailto:nunziato.sorrentino@pi.infn.it">More information</a>
+
+	    <!--echo "For more information please contact <a href=\"mailto:nunziato.sorrentino@pi.infn.it\">Nunziato Sorrentino</a> (<a href=\"terms.php\">Terms of usage</a>)\n";-->
+	</div>
+
+
+</div>
+</div>
+  </body>
+</html>
