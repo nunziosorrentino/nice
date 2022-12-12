@@ -29,8 +29,8 @@
      <table> 
       <td><strong>Save and return the GW time series:</strong></td>
        <form action="../loaddama/glitch" method='GET'>
-         <input type='hidden' name='tmin_gps' value={{glitch_time_min}}>
-         <input type='hidden' name='tmax_gps' value={{glitch_time_max}}>
+         <input type='hidden' name='tmin_gps' value={{glitch_time_min_download}}>
+         <input type='hidden' name='tmax_gps' value={{glitch_time_max_download}}>
          <input type='hidden' name='tgps_glitch' value={{glitchinstance.peak_time_gps}}>         
          <input type='hidden' name='ifo' value={{glitchinstance.channel.detector.code}}>
          <input type='hidden' name='channel' value={{glitchinstance.channel.name}}>

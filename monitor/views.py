@@ -347,6 +347,8 @@ class GlitchInstanceDetailView(generic.DetailView):
         context["glitch_time_int"]=int(round(GlitchInstance.objects.using(db_k).get(pk=self.kwargs['pk']).peak_time_gps))
         context["glitch_time_min"]=float(GlitchInstance.objects.using(db_k).get(pk=self.kwargs['pk']).peak_time_gps)-1
         context["glitch_time_max"]=float(GlitchInstance.objects.using(db_k).get(pk=self.kwargs['pk']).peak_time_gps)+1
+        context["glitch_time_min_download"]=float(GlitchInstance.objects.using(db_k).get(pk=self.kwargs['pk']).peak_time_gps)-30
+        context["glitch_time_max_download"]=float(GlitchInstance.objects.using(db_k).get(pk=self.kwargs['pk']).peak_time_gps)+30
         glitch_time_date=from_gps(float(GlitchInstance.objects.using(db_k).get(pk=self.kwargs['pk']).peak_time_gps))
         try:
             glitch_time_date, gl_mus = str(glitch_time_date).split('.')
@@ -1205,16 +1207,16 @@ def download_timeseries(request):
         dama = GwDataManager('test_manager')
         t_arr = np.linspace(m_tmin_gps, m_tmax_gps, int(m_tobs*4096)) 
         data_sim = g_models.white_noise(t_arr)
-        #if m_gps_g.glitch_class.name=='GWScatteredLight':
-        #    signal_noise_c+=g_models.scatlight_model(t_arr, m_gps_g.peak_time_gps, 
-        #                                             m_gps_g.duration,
-        #                                             m_gps_g.peak_frequency, 
-        #                                             m_gps_g.snr)   
-        #if m_gps_g.glitch_class.name=='GWSinGauss':
-        #    signal_noise_c+=g_models.singauss_model(t_arr, m_gps_g.peak_time_gps, 
-        #                                            m_gps_g.duration,
-        #                                            m_gps_g.peak_frequency, 
-        #                                            m_gps_g.snr)                           
+        if m_gps_g.glitch_class.name=='GWScatteredLight':
+            signal_noise_c+=g_models.scatlight_model(t_arr, m_gps_g.peak_time_gps, 
+                                                     m_gps_g.duration,
+                                                     m_gps_g.peak_frequency, 
+                                                     m_gps_g.snr)   
+        if m_gps_g.glitch_class.name=='GWSinGauss':
+            signal_noise_c+=g_models.singauss_model(t_arr, m_gps_g.peak_time_gps, 
+                                                    m_gps_g.duration,
+                                                    m_gps_g.peak_frequency, 
+                                                    m_gps_g.snr)                           
         dama = GwDataManager('test_manager')
         dset = dama.create_dataset('random_dataset', data=data_sim)
         dset.attrs.create('t0', str(m_tmin_gps))
